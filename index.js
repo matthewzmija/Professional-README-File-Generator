@@ -1,6 +1,8 @@
+// These variables are used to import the inquirer package and filesystem
 const inquirer = require("inquirer");
 const fs = require("fs");
 
+// Prompts used to ask the user questions
 inquirer
   .prompt([
     {
@@ -50,6 +52,7 @@ inquirer
       message: "Please provide your email",
     },
   ])
+  // Adding the respective badge based on what the user answered
   .then((data) => {
     let licenseBadge = "";
     if (data.license == "MIT") {
@@ -64,6 +67,7 @@ inquirer
       licenseBadge ==
         "![License: Apache License 2.0](https://img.shields.io/badge/License-Apache%20License%202-blue.svg)";
     }
+    // Template for the README file being created
     const readMeFile = `# ${data.title} ${licenseBadge}
 
 ## Description
@@ -95,6 +99,7 @@ ${licenseBadge}
 
 ## Contact
 My GitHub is https://github.com/${data.username} and my email is ${data.email}`;
+    // Writing file into the GeneratedREADME folder
     fs.writeFile("./GeneratedREADME/README.md", readMeFile, (err) =>
       err ? console.log(err) : console.log("Success!")
     );
